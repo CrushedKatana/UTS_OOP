@@ -1,14 +1,14 @@
 package File_UTS;
 
 class Weather {
-    private String condition; // e.g., sunny, rainy, stormy
+    private String condition;
 
     public Weather() {
         this.condition = "Sunny";
     }
 
     public void changeWeather() {
-        int random = (int) (Math.random() * 3);
+        int random = (int) (Math.random() * 4); 
         switch (random) {
             case 0:
                 condition = "Sunny";
@@ -19,6 +19,9 @@ class Weather {
             case 2:
                 condition = "Stormy";
                 break;
+            case 3:
+                condition = "Drought";
+                break;
         }
         System.out.println("The weather is now " + condition);
     }
@@ -26,4 +29,34 @@ class Weather {
     public String getCondition() {
         return condition;
     }
+
+    public void applyWeatherEffects(Land land) {
+        if (land.getPlantedCrop() != null) {
+            Crop crop = land.getPlantedCrop();
+            switch (condition) {
+                case "Sunny":
+                    // Sunny days make crops grow a bit faster if watered enough
+                    System.out.println("Sunny weather! Crops grow well if watered.");
+                    break;
+                case "Rainy":
+                    // Automatically water crops
+                    System.out.println("Rainy weather! Crops are watered automatically.");
+                    land.waterCrop(crop.getWaterNeeds());
+                    break;
+                case "Stormy":
+                    // Stormy weather increases risk of crops getting sick
+                    System.out.println("Stormy weather! Crops are at risk of getting sick.");
+                    if (Math.random() < 0.3) { // 30% chance crop gets sick
+                        crop.getSick();
+                    }
+                    break;
+                case "Drought":
+                    // Drought increases water needs for crops
+                    System.out.println("Drought! Crops need double the water.");
+                    crop.water(crop.getWaterNeeds() * 2); // Drought doubles water needs
+                    break;
+            }
+        }
+    }
 }
+

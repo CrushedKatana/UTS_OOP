@@ -8,13 +8,10 @@ public class FarmSimulation {
 
         System.out.print("Enter your name: ");
         String playerName = scanner.nextLine();
-
         System.out.print("Enter your farm's name: ");
         String farmName = scanner.nextLine();
-
-        System.out.print("Enter land soil type (e.g., Loamy, Sandy, Clay): ");
+        System.out.print("Enter land soil type (Loamy, Sandy, Clay): ");
         String soilType = scanner.nextLine();
-
         System.out.print("Enter land size (e.g., 100): ");
         int landSize = scanner.nextInt();
 
@@ -27,7 +24,6 @@ public class FarmSimulation {
 
         while (gameRunning) {
             displayStatus(player, land, gameTime, weather);
-
             System.out.println("\n========== Farm Simulation ==========");
             System.out.println("1. Plant crop");
             System.out.println("2. Water crop");
@@ -35,20 +31,26 @@ public class FarmSimulation {
             System.out.println("4. Harvest crop");
             System.out.println("5. Rest");
             System.out.println("6. Pass day");
-            System.out.println("7. Exit");
+            System.out.println("7. Visit Store");
+            System.out.println("8. Exit");
             System.out.println("====================================\n");
-            System.out.print("Choose an action (1-7): ");
+
+            System.out.print("Choose an action (1-8): ");
             int choice = scanner.nextInt();
 
             switch (choice) {
-                case 1: 
+                case 1:
                     if (land.isEmpty()) {
                         System.out.println("Choose a crop to plant:");
                         System.out.println("1. Rice");
                         System.out.println("2. Corn");
-                        System.out.println("3. Vegetables");
-                        int cropChoice = scanner.nextInt();
+                        System.out.println("3. Wheat");
+                        System.out.println("4. Tomato");
+                        System.out.println("5. Carrot");
+                        System.out.println("6. Strawberry");
+                        System.out.println("7. Potato");
 
+                        int cropChoice = scanner.nextInt();
                         Crop cropToPlant;
                         switch (cropChoice) {
                             case 1:
@@ -58,13 +60,24 @@ public class FarmSimulation {
                                 cropToPlant = new Corn();
                                 break;
                             case 3:
-                                cropToPlant = new Vegetables();
+                                cropToPlant = new Wheat();
+                                break;
+                            case 4:
+                                cropToPlant = new Tomato();
+                                break;
+                            case 5:
+                                cropToPlant = new Carrot();
+                                break;
+                            case 6:
+                                cropToPlant = new Strawberry();
+                                break;
+                            case 7:
+                                cropToPlant = new Potato();
                                 break;
                             default:
                                 System.out.println("Invalid choice.");
                                 continue;
                         }
-
                         player.plantCrop(land, cropToPlant, gameTime.getSeason());
                     } else {
                         System.out.println("There's already a crop on this land.");
@@ -92,15 +105,79 @@ public class FarmSimulation {
                 case 6:
                     gameTime.passDay();
                     weather.changeWeather();
-
-                    if (weather.getCondition().equals("Rainy") && land.getPlantedCrop() != null) {
-                        land.waterCrop(land.getPlantedCrop().getWaterNeeds());
-                    }
-
+                    weather.applyWeatherEffects(land);
                     System.out.println("A new day has passed.");
                     break;
 
-                case 7: // Exit
+                case 7:
+                    System.out.println("1. Buy Seeds (1. Rice, 2. Corn, 3. Wheat, 4. Tomato, 5. Carrot, 6. Strawberry, 7. Potato)");
+                    System.out.println("2. Buy Fertilizer");
+                    System.out.println("3. Buy Tools (1. Watering Can, 2. Hoe)");
+                    int storeChoice = scanner.nextInt();
+                    switch (storeChoice) {
+                        case 1:
+                            System.out.println("Choose a seed type:");
+                            System.out.println("1. Rice");
+                            System.out.println("2. Corn");
+                            System.out.println("3. Wheat");
+                            System.out.println("4. Tomato");
+                            System.out.println("5. Carrot");
+                            System.out.println("6. Strawberry");
+                            System.out.println("7. Potato");
+                            int seedChoice = scanner.nextInt();
+                            Crop crop;
+                            switch (seedChoice) {
+                                case 1:
+                                    crop = new Rice();
+                                    break;
+                                case 2:
+                                    crop = new Corn();
+                                    break;
+                                case 3:
+                                    crop = new Wheat();
+                                    break;
+                                case 4:
+                                    crop = new Tomato();
+                                    break;
+                                case 5:
+                                    crop = new Carrot();
+                                    break;
+                                case 6:
+                                    crop = new Strawberry();
+                                    break;
+                                case 7:
+                                    crop = new Potato();
+                                    break;
+                                default:
+                                    System.out.println("Invalid choice.");
+                                    continue;
+                            }
+                            player.buySeeds(crop);
+                            break;
+                        case 2:
+                            player.buyFertilizer();
+                            break;
+                        case 3:
+                            System.out.println("1. Watering Can");
+                            System.out.println("2. Hoe");
+                            int toolChoice = scanner.nextInt();
+                            switch (toolChoice) {
+                                case 1:
+                                    player.buyTool("Watering Can");
+                                    break;
+                                case 2:
+                                    player.buyTool("Hoe");
+                                    break;
+                                default:
+                                    System.out.println("Invalid tool choice.");
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid store option.");
+                    }
+                    break;
+
+                case 8:
                     gameRunning = false;
                     System.out.println("Exiting the simulation. Goodbye!");
                     break;
@@ -109,7 +186,6 @@ public class FarmSimulation {
                     System.out.println("Invalid choice. Please choose again.");
             }
         }
-
         scanner.close();
     }
 

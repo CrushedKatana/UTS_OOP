@@ -2,11 +2,11 @@ package File_UTS;
 
 abstract class Crop {
     protected String name;
-    protected int harvestTime;  // Days to harvest
-    protected int waterNeeds;   // Water requirements per day
-    protected int growthStage;  // Tracks how much the crop has grown
+    protected int harvestTime;
+    protected int waterNeeds;
+    protected int growthStage;
     protected boolean isSick;
-    protected String[] plantableSeasons;  // Seasons when the crop can be planted
+    protected String[] plantableSeasons;
 
     public Crop(String name, int harvestTime, int waterNeeds, String[] plantableSeasons) {
         this.name = name;
@@ -61,4 +61,6 @@ abstract class Crop {
             System.out.println(name + " is not ready to harvest yet.");
         }
     }
+
+    public abstract int getSellPrice();
 }

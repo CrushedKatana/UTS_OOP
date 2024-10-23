@@ -8,7 +8,7 @@ class Land {
     public Land(String soilType, int size) {
         this.soilType = soilType;
         this.size = size;
-        this.plantedCrop = null;  // Initially, the land has no crops
+        this.plantedCrop = null; // Initially, the land has no crops
     }
 
     public String getSoilType() {
@@ -55,7 +55,7 @@ class Land {
     public void harvestCrop() {
         if (plantedCrop != null && plantedCrop.isReadyToHarvest()) {
             plantedCrop.harvest();
-            plantedCrop = null;  // Clear the land after harvesting
+            plantedCrop = null; // Clear the land after harvesting
         } else {
             System.out.println("No crop to harvest or crop is not ready.");
         }

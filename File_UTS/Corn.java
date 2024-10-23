@@ -12,4 +12,9 @@ class Corn extends Crop {
             System.out.println("Corn has grown to stage: " + growthStage);
         }
     }
+
+    @Override
+    public int getSellPrice() {
+        return 180;
+    }
 }

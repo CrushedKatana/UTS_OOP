@@ -12,4 +12,9 @@ class Rice extends Crop {
             System.out.println("Rice has grown to stage: " + growthStage);
         }
     }
+
+    @Override
+    public int getSellPrice() {
+        return 200;
+    }
 }

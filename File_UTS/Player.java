@@ -15,55 +15,16 @@ class Player {
         this.store = new Store(initialMoney);
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public String getFarmName() { return farmName; }
+    public int getMoney() { return money; }
+    public int getEnergy() { return energy; }
 
-    public String getFarmName() {
-        return farmName;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public int getEnergy() {
-        return energy;
-    }
-
-    // Rest and regain energy
-    public void rest() {
-        energy = 100; // Reset energy after rest
-        System.out.println(name + " has rested and regained energy.");
-    }
-
-    // Buy seeds through the store
-    public void buySeeds(Crop crop) {
-        if (store.buySeeds(crop)) {
-            money = store.getMoney(); // Update player's money after purchase
-        }
-    }
-
-    // Buy fertilizer through the store
-    public void buyFertilizer() {
-        if (store.buyFertilizer()) {
-            money = store.getMoney(); // Update player's money after purchase
-        }
-    }
-
-    // Buy tools through the store
-    public void buyTool(String tool) {
-        if (store.buyTool(tool)) {
-            money = store.getMoney(); // Update player's money after purchase
-        }
-    }
-
-    // Plant a crop
     public void plantCrop(Land land, Crop crop, String season) {
         if (crop.canBePlantedIn(season)) {
             if (energy > 10) {
                 land.plantCrop(crop);
-                energy -= 10; // Planting a crop reduces player's energy
+                energy -= 10;
                 System.out.println("You planted " + crop.name + " on your land.");
             } else {
                 System.out.println("You don't have enough energy to plant crops.");
@@ -73,12 +34,11 @@ class Player {
         }
     }
 
-    // Water the crop in the land
     public void waterLand(Land land, int waterAmount) {
-        if (land.getPlantedCrop() != null) {
+        if (!land.isEmpty()) {
             if (energy > 5) {
-                land.waterCrop(waterAmount);
-                energy -= 5; // Watering crops reduces player's energy
+                land.waterCrops(waterAmount);
+                energy -= 5;
             } else {
                 System.out.println("You don't have enough energy to water crops.");
             }
@@ -87,12 +47,11 @@ class Player {
         }
     }
 
-    // Fertilize the land
     public void fertilizeLand(Land land) {
-        if (land.getPlantedCrop() != null) {
+        if (!land.isEmpty()) {
             if (energy > 8) {
-                land.fertilizeCrop();
-                energy -= 8; // Fertilizing crops reduces player's energy
+                land.fertilizeCrops();
+                energy -= 8;
             } else {
                 System.out.println("You don't have enough energy to fertilize crops.");
             }
@@ -101,15 +60,12 @@ class Player {
         }
     }
 
-    // Harvest crops
     public void harvestLand(Land land) {
-        if (land.getPlantedCrop() != null && land.getPlantedCrop().isReadyToHarvest()) {
-            land.harvestCrop();
-            energy -= 15; // Harvesting crops reduces player's energy
+        if (!land.isEmpty()) {
+            land.harvestCrops();
+            energy -= 15;
         } else {
-            System.out.println("There's no crop to harvest or crop is not ready.");
+            System.out.println("There's no crop to harvest.");
         }
     }
 }
-
-

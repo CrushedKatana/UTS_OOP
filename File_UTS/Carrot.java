@@ -2,7 +2,7 @@ package File_UTS;
 
 class Carrot extends Crop {
     public Carrot() {
-        super("Carrot", 30, 1, new String[]{"Spring", "Winter"});
+        super("Carrot", 7, 1, new String[]{"Spring", "Winter"});
     }
 
     @Override

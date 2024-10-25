@@ -20,6 +20,29 @@ class Player {
     public int getMoney() { return money; }
     public int getEnergy() { return energy; }
 
+    public void rest() {
+        energy = 100; // Reset energy after rest
+        System.out.println(name + " has rested and regained energy.");
+    }
+
+    public void buySeeds(Crop crop) {
+        if (store.buySeeds(crop)) {
+            money = store.getMoney(); // Update player's money after purchase
+        }
+    }
+
+    public void buyFertilizer() {
+        if (store.buyFertilizer()) {
+            money = store.getMoney(); // Update player's money after purchase
+        }
+    }
+
+    public void buyTool(String tool) {
+        if (store.buyTool(tool)) {
+            money = store.getMoney(); // Update player's money after purchase
+        }
+    }
+
     public void plantCrop(Land land, Crop crop, String season) {
         if (crop.canBePlantedIn(season)) {
             if (energy > 10) {
@@ -69,3 +92,4 @@ class Player {
         }
     }
 }
+

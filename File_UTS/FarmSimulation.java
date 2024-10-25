@@ -1,3 +1,5 @@
+package File_UTS;
+
 import java.util.Scanner;
 
 public class FarmSimulation {
@@ -153,3 +155,4 @@ public class FarmSimulation {
         System.out.println("====================================\n");
     }
 }
+

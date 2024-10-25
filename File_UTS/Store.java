@@ -8,7 +8,7 @@ class Store {
     }
 
     public boolean buySeeds(Crop crop) {
-        int seedPrice = 100;  
+        int seedPrice = 100;
         if (money >= seedPrice) {
             System.out.println("Bought seeds for " + crop.name + " for $" + seedPrice);
             money -= seedPrice;
@@ -20,7 +20,7 @@ class Store {
     }
 
     public boolean buyFertilizer() {
-        int fertilizerPrice = 50;  
+        int fertilizerPrice = 50;
         if (money >= fertilizerPrice) {
             System.out.println("Bought fertilizer for $" + fertilizerPrice);
             money -= fertilizerPrice;
@@ -44,7 +44,6 @@ class Store {
                 System.out.println("Invalid tool selected.");
                 return false;
         }
-
         if (money >= toolPrice) {
             System.out.println("Bought " + tool + " for $" + toolPrice);
             money -= toolPrice;
@@ -55,6 +54,7 @@ class Store {
         }
     }
 
+    // New method for selling harvested crops
     public void sellHarvest(Crop crop) {
         int sellPrice = crop.getSellPrice();
         System.out.println("Sold " + crop.name + " for $" + sellPrice);
@@ -69,4 +69,3 @@ class Store {
         this.money = money;
     }
 }
-
